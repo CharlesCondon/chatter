@@ -1,4 +1,5 @@
 // app/posts/layout.tsx
+import Navbar from "@/components/ui/Navbar/Navbar";
 export default function PostsLayout({
     children,
 }: {
@@ -6,8 +7,8 @@ export default function PostsLayout({
 }) {
     return (
         <section>
-            <h2>Profile Sections</h2>
             {children}
+            <Navbar></Navbar>
         </section>
     );
 }
