@@ -93,7 +93,7 @@ export default function HomeClient({
 
     return (
         <section className="relative min-h-full">
-            <nav className="flex flex-row items-center p-4">
+            <nav className="flex flex-row items-center p-4 border-black border-b">
                 <BackButton />
                 <h1 className="flex-1 text-center font-bold">Notifications</h1>
                 <div className="basis-6"></div>
