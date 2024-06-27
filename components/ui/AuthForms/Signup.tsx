@@ -88,7 +88,7 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
                     type="email"
                     autoComplete="email"
                     placeholder="Email"
-                    className="p-2"
+                    className="p-2 bg-zinc-200"
                 ></input>
 
                 <input
@@ -97,7 +97,7 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
                     name="displayName"
                     type="text"
                     placeholder="Display Name"
-                    className="p-2"
+                    className="p-2 bg-zinc-200"
                 ></input>
                 {errors.displayName && (
                     <span className="text-red-500 text-sm">
@@ -110,7 +110,7 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
                     name="username"
                     type="text"
                     placeholder="Username"
-                    className="p-2"
+                    className="p-2 bg-zinc-200"
                 ></input>
                 {errors.username && (
                     <span className="text-red-500 text-sm">
@@ -123,7 +123,7 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
                     name="password"
                     type="password"
                     placeholder="Password"
-                    className="p-2"
+                    className="p-2 bg-zinc-200"
                 ></input>
                 <input
                     required
@@ -131,7 +131,7 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
                     name="password2"
                     type="password"
                     placeholder="Confirm Password"
-                    className="p-2"
+                    className="p-2 bg-zinc-200"
                 ></input>
                 {errors.password && (
                     <span className="text-red-500 text-sm">

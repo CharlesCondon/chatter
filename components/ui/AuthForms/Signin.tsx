@@ -43,7 +43,7 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
                             autoCapitalize="none"
                             autoComplete="email"
                             autoCorrect="off"
-                            className="w-full p-3 rounded-md bg-zinc-800"
+                            className="w-full p-3 rounded-md bg-zinc-200"
                         />
                         <label htmlFor="password">Password</label>
                         <input
@@ -52,13 +52,13 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
                             type="password"
                             name="password"
                             autoComplete="current-password"
-                            className="w-full p-3 rounded-md bg-zinc-800"
+                            className="w-full p-3 rounded-md bg-zinc-200"
                         />
                     </div>
                     <Button
                         variant="slim"
                         type="submit"
-                        className="mt-1"
+                        className="mt-1 "
                         loading={isSubmitting}
                     >
                         Submit
