@@ -9,14 +9,10 @@ import { publishPost } from "@/lib/auth-helpers/server";
 import { useRouter } from "next/navigation";
 import BackButton from "@/components/ui/BackButton/BackButton";
 
-interface PostProps {
-    redirectMethod: string;
-}
-
-export default function PostNewPage({ redirectMethod }: PostProps) {
+export default function PostNewPage() {
     const { profile } = useUser();
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const router = redirectMethod === "client" ? useRouter() : null;
+    const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
     //console.log(profile);
 
