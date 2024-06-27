@@ -13,7 +13,7 @@ interface PostProps {
     redirectMethod: string;
 }
 
-export default function PostsPage({ redirectMethod }: PostProps) {
+export default function PostNewPage({ redirectMethod }: PostProps) {
     const { profile } = useUser();
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const router = redirectMethod === "client" ? useRouter() : null;
