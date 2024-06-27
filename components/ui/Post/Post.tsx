@@ -161,11 +161,11 @@ export default function Post({
                         <p className="opacity-50">·</p>
                         <p className="opacity-50">{formattedTime}</p>
                     </div>
-                    {currentUser && currentUser.username === user && (
+                    {/* {currentUser && currentUser.username === user && (
                         <div onClick={() => handlePostOptions}>
                             <PostOptionsModal user={currentUser} post_id={id} />
                         </div>
-                    )}
+                    )} */}
                 </div>
                 <p className="mb-2">{content}</p>
                 <div className="flex justify-between">
