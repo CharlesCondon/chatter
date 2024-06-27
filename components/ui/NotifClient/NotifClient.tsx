@@ -13,6 +13,8 @@ import {
 } from "@/lib/auth-helpers/server";
 import BackButton from "../BackButton/BackButton";
 import defaultAvi from "@/components/icons/user.png";
+import heartImg from "@/components/icons/heart.png";
+import commentImg from "@/components/icons/chat.png";
 
 interface Notif {
     id: string;
@@ -81,11 +83,11 @@ export default function HomeClient({
     }
     function getNotifImg(text: string) {
         if (text === "likes") {
-            return "heart";
+            return heartImg;
         } else if (text === "comments") {
-            return "comm";
-        } else if (text === "followers") {
-            return "follow";
+            return commentImg;
+        } else {
+            return defaultAvi;
         }
     }
 
@@ -141,8 +143,13 @@ export default function HomeClient({
                                     </div>
                                 </div>
 
-                                <div className="min-w-11 flex items-center">
-                                    {getNotifImg(notif.type)}
+                                <div className="min-w-11 flex items-center justify-center">
+                                    <Image
+                                        src={getNotifImg(notif.type)}
+                                        width={20}
+                                        height={20}
+                                        alt=""
+                                    />
                                 </div>
                             </div>
                         );
