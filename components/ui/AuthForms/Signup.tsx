@@ -20,7 +20,12 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-    const validateInputs = (displayName: string, username: string) => {
+    const validateInputs = (
+        displayName: string,
+        username: string,
+        password: string,
+        password2: string
+    ) => {
         const newErrors: { [key: string]: string } = {};
         if (displayName.length <= 3) {
             newErrors.displayName =
@@ -34,6 +39,9 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
             newErrors.username =
                 "Username can only contain letters, numbers, -, or _";
         }
+        if (password !== password2) {
+            newErrors.password = "Passwords must be matching";
+        }
         return newErrors;
     };
 
@@ -44,8 +52,15 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
         const formData = new FormData(e.currentTarget);
         const displayName = String(formData.get("displayName")).trim();
         const username = String(formData.get("username")).trim();
+        const password = String(formData.get("password")).trim();
+        const password2 = String(formData.get("password2")).trim();
 
-        const validationErrors = validateInputs(displayName, username);
+        const validationErrors = validateInputs(
+            displayName,
+            username,
+            password,
+            password2
+        );
 
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
@@ -118,6 +133,11 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
                     placeholder="Confirm Password"
                     className="p-2"
                 ></input>
+                {errors.password && (
+                    <span className="text-red-500 text-sm">
+                        {errors.password}
+                    </span>
+                )}
                 <Button
                     variant="slim"
                     type="submit"
