@@ -16,6 +16,26 @@ export async function redirectToPath(path: string) {
   	return redirect(path);
 }
 
+export async function fetchUser() {
+	const supabase = createClient()
+	const {
+		data: { user },
+	} = await supabase.auth.getUser();
+
+	if (!user) {
+		return 'User not signed in'
+	}
+
+	const {data:userData, error:userError} = await supabase.from("profiles").select("username").eq("id", user.id).single();
+
+	if (userError) {
+		console.log(userError);
+		return
+	}
+
+	return userData.username;
+}
+
 export async function SignOut(path: string) {
 	const pathName = path;
 
