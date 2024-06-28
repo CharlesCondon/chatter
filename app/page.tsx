@@ -30,12 +30,14 @@ export default function Home() {
                 <span>v.0.5</span>
                 <span>
                     by:{" "}
-                    <Link
+                    <a
                         href={"https://www.charlescon.com/"}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="underline"
                     >
                         Charles Condon
-                    </Link>
+                    </a>
                 </span>
             </div>
         </main>
