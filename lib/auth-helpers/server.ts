@@ -913,7 +913,7 @@ export async function signUp(formData: FormData) {
 
 	const email = String(formData.get('email')).trim();
 	const password = String(formData.get('password')).trim();
-	const username = String(formData.get('username')).trim();
+	const username = String(formData.get('username')).trim().toLowerCase();
     const displayName = String(formData.get('displayName')).trim();
 	let redirectPath: string;
 
@@ -926,6 +926,19 @@ export async function signUp(formData: FormData) {
 	}
 
 	const supabase = createClient();
+
+	console.log(username)
+	const {data:userData, error:userError} = await supabase.from("profiles").select("*").eq("username", username).single();
+
+	if (userData || !userError) {
+		return redirectPath = getErrorRedirect(
+			'/signin/signup',
+			'Sign up failed.',
+			'This username is already in use'
+		);
+	} 
+	
+
 	const { error, data } = await supabase.auth.signUp({
 		email,
 		password,

@@ -13,7 +13,7 @@ export default function Navbar() {
     //console.log(profile);
 
     return (
-        <nav className="flex flex-row items-center justify-between p-4 fixed  bottom-0 w-screen border-black border-t">
+        <nav className="flex flex-row items-center justify-between p-4 fixed  bottom-0 w-screen border-[var(--accent-light)] border-t">
             <Link href={"/home"}>
                 <Image src={homeImg} width={25} height={25} alt="Home" />
             </Link>

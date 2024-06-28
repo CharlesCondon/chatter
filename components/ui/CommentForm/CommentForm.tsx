@@ -157,7 +157,7 @@ export default function CommentForm({ user, post }: CommentFormProps) {
                             className="resize-none flex-1 p-2 bg-transparent text-xl w-full focus-visible:outline-none"
                         ></textarea>
                     </div>
-                    <button className="border border-black rounded bg-white w-full">
+                    <button className="absolute top-4 right-4 border border-[var(--accent-light)] rounded-full bg-[var(--background-color)] text-sm py-1 px-4">
                         POST
                     </button>
                 </form>

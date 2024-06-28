@@ -196,7 +196,7 @@ export default async function ProfilePage({
 
     return (
         <section className="flex min-h-screen flex-col gap-3 ">
-            <nav className="fixed z-10 w-full flex flex-row border-b border-black p-4 items-center">
+            <nav className="fixed z-10 w-full flex flex-row border-b border-[var(--accent-light)] p-4 items-center">
                 <BackButton></BackButton>
                 <h1 className="flex-1 text-center font-bold">
                     {profile.profile.username}
@@ -276,7 +276,7 @@ export default async function ProfilePage({
                 </p>
                 <p>{profile.profile.bio}</p>
             </div>
-            <div className="flex flex-row justify-around border-y border-black py-2">
+            <div className="flex flex-row justify-around border-y border-[var(--accent-light)] py-2">
                 <div className="flex-1 flex flex-col items-center">
                     <p className="font-bold">{profile.posts.length}</p>
                     <p className="text-sm opacity-50">posts</p>

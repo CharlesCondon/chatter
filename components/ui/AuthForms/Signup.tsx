@@ -7,6 +7,7 @@ import { signUp } from "@/lib/auth-helpers/server";
 import { handleRequest } from "@/lib/auth-helpers/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 // Define prop type with allowEmail boolean
 interface SignUpProps {
@@ -19,6 +20,9 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
     const router = redirectMethod === "client" ? useRouter() : null;
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
+    const searchParams = useSearchParams();
+    const errorMessage = searchParams.get("error_description");
+    //console.log(errorMessage);
 
     const validateInputs = (
         displayName: string,
@@ -88,7 +92,7 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
                     type="email"
                     autoComplete="email"
                     placeholder="Email"
-                    className="p-2 bg-zinc-200"
+                    className="p-2 bg-[var(--background-alt)]"
                 ></input>
 
                 <input
@@ -97,7 +101,7 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
                     name="displayName"
                     type="text"
                     placeholder="Display Name"
-                    className="p-2 bg-zinc-200"
+                    className="p-2 bg-[var(--background-alt)]"
                 ></input>
                 {errors.displayName && (
                     <span className="text-red-500 text-sm">
@@ -110,7 +114,7 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
                     name="username"
                     type="text"
                     placeholder="Username"
-                    className="p-2 bg-zinc-200"
+                    className="p-2 bg-[var(--background-alt)]"
                 ></input>
                 {errors.username && (
                     <span className="text-red-500 text-sm">
@@ -123,7 +127,7 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
                     name="password"
                     type="password"
                     placeholder="Password"
-                    className="p-2 bg-zinc-200"
+                    className="p-2 bg-[var(--background-alt)]"
                 ></input>
                 <input
                     required
@@ -131,12 +135,15 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
                     name="password2"
                     type="password"
                     placeholder="Confirm Password"
-                    className="p-2 bg-zinc-200"
+                    className="p-2 bg-[var(--background-alt)]"
                 ></input>
                 {errors.password && (
                     <span className="text-red-500 text-sm">
                         {errors.password}
                     </span>
+                )}
+                {errorMessage && (
+                    <span className="text-red-500 text-sm">{errorMessage}</span>
                 )}
                 <Button
                     variant="slim"

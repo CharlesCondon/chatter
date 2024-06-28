@@ -3,9 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: rgb(0, 0, 0);
+  --background-alt: rgb(217, 240, 247);
+  --background-color: rgb(235, 248, 253);
+  --accent-color: rgb(0, 21, 81);
+  --accent-light: rgba(0, 21, 81, .15)
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -17,12 +19,12 @@
 } */
 
 body {
-  color:black;
-  background-color: white;
+  color: var(--accent-color);
+  background-color: var(--background-color);
 }
 
 nav {
-  background: white
+  background: var(--background-alt);
 }
 
 @layer utilities {

@@ -43,7 +43,7 @@ export default async function DedicatedPostPage({
 
     return (
         <main className=" flex flex-col gap-5 min-h-screen">
-            <div className="ml-4 mt-4">
+            <div className="pl-4 py-4 bg-[var(--background-alt)] border-[var(--accent-light)] border-b">
                 <BackButton />
             </div>
             <CommentForm

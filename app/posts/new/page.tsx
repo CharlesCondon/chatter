@@ -23,15 +23,15 @@ export default function PostNewPage() {
     };
 
     return (
-        <main className="p-10 flex flex-col gap-5 min-h-screen">
-            <div>
+        <main className=" flex flex-col gap-5 min-h-screen">
+            <nav className="p-4 border-[var(--accent-light)] border-b">
                 <BackButton />
-            </div>
+            </nav>
 
             {/* <h1>{profile ? profile.full_name : ""}</h1>
             <h2>@{profile ? profile.username : ""}</h2> */}
             <form
-                className="flex flex-col gap-4 w-full"
+                className=" p-4 flex flex-col gap-4 w-full"
                 onSubmit={(e) => handleSubmit(e)}
             >
                 <div className="flex gap-4">
@@ -52,7 +52,7 @@ export default function PostNewPage() {
                         className="resize-none flex-1 p-2 bg-transparent text-xl w-full focus-visible:outline-none"
                     ></textarea>
                 </div>
-                <button className="border border-black rounded bg-white w-full py-2">
+                <button className="absolute top-4 right-4 border border-[var(--accent-light)] rounded-full bg-[var(--background-color)] text-sm py-1 px-4">
                     POST
                 </button>
             </form>

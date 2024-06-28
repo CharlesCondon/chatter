@@ -58,8 +58,8 @@ export default function HomeClient({ initialPosts }: { initialPosts: Post[] }) {
     };
 
     return (
-        <section className="relative mt-8">
-            <div className="flex flex-row border-b border-black pb-1">
+        <section className="relative">
+            <div className="flex flex-row border-b border-[var(--accent-light)] pb-1 bg-[var(--background-alt)] pt-8">
                 <button
                     onClick={() => handleViewChange(false)}
                     className={`flex-1 ${!viewFollowing ? "font-bold" : ""}`}
@@ -75,7 +75,7 @@ export default function HomeClient({ initialPosts }: { initialPosts: Post[] }) {
             </div>
             <button
                 onClick={handleRefresh}
-                className="hidden md:block mt-2 border-b border-black w-full pb-2"
+                className="hidden md:block mt-2 border-b border-[var(--accent-light)] w-full pb-2"
             >
                 Refresh
             </button>
@@ -100,13 +100,13 @@ export default function HomeClient({ initialPosts }: { initialPosts: Post[] }) {
                         ))}
                     </ul>
                     <div className="flex items-center justify-center h-28 mb-14">
-                        <h1>No more posts :(</h1>
+                        <h1>No more posts :{"("}</h1>
                     </div>
                 </div>
             </PullToRefresh>
             <Link
                 href="/posts/new"
-                className="flex items-center justify-center border bg-white border-black fixed bottom-20 right-4 rounded-full h-16 w-16"
+                className="flex items-center justify-center border bg-[var(--background-alt)] border-[var(--accent-light)] fixed bottom-20 right-4 rounded-full h-16 w-16"
             >
                 <Image src={plusImg} width={25} height={25} alt="" />
             </Link>

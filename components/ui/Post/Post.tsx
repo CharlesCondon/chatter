@@ -75,7 +75,11 @@ export default function Post({
 
     const navigateToPost = (e: React.MouseEvent<HTMLDivElement>) => {
         //console.log(e.currentTarget);
-        router.push(`/posts/${user}/${id}`);
+        if (comment_count === -1 || likes === -1) {
+            return;
+        } else {
+            router.push(`/posts/${user}/${id}`);
+        }
     };
 
     const handleComment = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -91,18 +95,18 @@ export default function Post({
 
         if (!didLike) {
             setCurrentLikes(currentLikes + 1);
+            setDidLike(!didLike);
             const result = await likeUnlike(id, "like", user_id);
             // if (result !== "success") {
             //     setCurrentLikes(currentLikes - 1);
             // }
-            setDidLike(!didLike);
         } else {
             setCurrentLikes(currentLikes - 1);
+            setDidLike(!didLike);
             const result = await likeUnlike(id, "unlike", user_id);
             // if (result !== "success") {
             //     setCurrentLikes(currentLikes + 1);
             // }
-            setDidLike(!didLike);
         }
     };
 
@@ -127,7 +131,9 @@ export default function Post({
     return (
         <div
             onClick={(e) => navigateToPost(e)}
-            className="relative z-0 flex flex-row pt-2 pr-4 pl-4 pb-2 border-b border-black gap-2 cursor-pointer"
+            className={`relative z-0 flex flex-row pt-2 pr-4 pl-4 pb-2 border-b border-[var(--accent-light)] gap-2 ${
+                comment_count === -1 || likes === -1 ? "" : "cursor-pointer"
+            }`}
         >
             <div className="pt-0.5">
                 <button onClick={handleProfileNav}>

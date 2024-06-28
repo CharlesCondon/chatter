@@ -25,8 +25,8 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
     };
 
     return (
-        <main className="p-10 flex flex-col gap-5 min-h-screen">
-            <h1 className="text-5xl text-center">Sign In</h1>
+        <main className="p-10 flex flex-col gap-5 min-h-screen max-w-lg mx-auto ">
+            <h1 className="text-5xl text-center pt-14">Sign In</h1>
             <form
                 noValidate={true}
                 className="mb-4"
@@ -43,7 +43,7 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
                             autoCapitalize="none"
                             autoComplete="email"
                             autoCorrect="off"
-                            className="w-full p-3 rounded-md bg-zinc-200"
+                            className="w-full p-3 rounded-md bg-[var(--background-alt)]"
                         />
                         <label htmlFor="password">Password</label>
                         <input
@@ -52,7 +52,7 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
                             type="password"
                             name="password"
                             autoComplete="current-password"
-                            className="w-full p-3 rounded-md bg-zinc-200"
+                            className="w-full p-3 rounded-md bg-[var(--background-alt)]"
                         />
                     </div>
                     <Button

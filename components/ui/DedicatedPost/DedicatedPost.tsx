@@ -127,11 +127,11 @@ export default function Post({
 
     return (
         <div>
-            <div className="ml-4 mt-4">
+            <div className="p-4 border-[var(--accent-light)] border-b">
                 <BackButton />
             </div>
 
-            <div className="flex flex-row pt-2 pr-4 pl-4 pb-2 border-b border-black gap-2 ">
+            <div className="flex flex-row pt-2 pr-4 pl-4 pb-2 border-b border-[var(--accent-light)] gap-2 ">
                 <div className="flex flex-col flex-1 gap-1">
                     <div className="flex flex-row gap-2 justify-between items-center">
                         <button onClick={handleProfileNav}>
@@ -179,7 +179,7 @@ export default function Post({
                     </time>
                 </div>
             </div>
-            <div className="flex justify-between border-b border-black pt-2 pr-4 pl-4 pb-2">
+            <div className="flex justify-between border-b border-[var(--accent-light)] pt-2 pr-4 pl-4 pb-2">
                 <button
                     onClick={handleComment}
                     className="flex flex-row items-center gap-1"

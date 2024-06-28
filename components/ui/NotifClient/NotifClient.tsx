@@ -15,6 +15,7 @@ import BackButton from "../BackButton/BackButton";
 import defaultAvi from "@/components/icons/user.png";
 import heartImg from "@/components/icons/heart.png";
 import commentImg from "@/components/icons/chat.png";
+import { useUser } from "@/components/UserContext";
 
 interface Notif {
     id: string;
@@ -39,6 +40,7 @@ export default function HomeClient({
     initialNotifs: Notif[];
 }) {
     const [notifs, setNotifs] = useState<Notif[]>(initialNotifs);
+    const currentUser = useUser().profile;
 
     const handleRefresh = async () => {
         try {
@@ -72,35 +74,34 @@ export default function HomeClient({
         }
     };
 
-    function getNotifText(text: string) {
-        if (text === "likes") {
-            return " liked your post ";
-        } else if (text === "comments") {
-            return " commented on your post ";
-        } else if (text === "followers") {
-            return " followed you ";
-        }
-    }
-    function getNotifImg(text: string) {
-        if (text === "likes") {
-            return heartImg;
-        } else if (text === "comments") {
-            return commentImg;
+    function getNotif(notif: Notif) {
+        let result = { text: "", img: {}, link: "" };
+        if (notif.type === "likes") {
+            result.link = `/posts/${currentUser.username}/${notif.related_id}`;
+            result.img = heartImg;
+            result.text = " liked your post ";
+        } else if (notif.type === "comments") {
+            result.link = `posts/${currentUser.username}/${notif.related_id}`;
+            result.img = commentImg;
+            result.text = " commented on your post ";
         } else {
-            return defaultAvi;
+            result.link = `/profile/${notif.creator_profile.username}`;
+            result.img = defaultAvi;
+            result.text = " followed you ";
         }
+        return result;
     }
 
     return (
         <section className="relative min-h-full">
-            <nav className="flex flex-row items-center p-4 border-black border-b">
+            <nav className="flex flex-row items-center p-4 border-[var(--accent-light)] border-b">
                 <BackButton />
                 <h1 className="flex-1 text-center font-bold">Notifications</h1>
                 <div className="basis-6"></div>
             </nav>
             <button
                 onClick={handleRefresh}
-                className="hidden md:block mt-2 border-b border-black w-full pb-2"
+                className="hidden md:block mt-2 border-b border-[var(--accent-light)] w-full pb-2"
             >
                 Refresh
             </button>
@@ -110,7 +111,7 @@ export default function HomeClient({
                         return (
                             <div
                                 key={i}
-                                className="flex flex-row gap-2 px-4 py-2 border-b border-black justify-between"
+                                className="flex flex-row gap-2 px-4 py-2 border-b border-[var(--accent-light)] justify-between"
                             >
                                 <div className="flex flex-row gap-2 ">
                                     <div className="min-w-11 flex items-center">
@@ -135,7 +136,7 @@ export default function HomeClient({
                                                 @
                                                 {notif.creator_profile.username}
                                             </b>
-                                            {getNotifText(notif.type)}
+                                            {getNotif(notif).text}
                                             <span className="opacity-65">
                                                 {formatTime(notif.created_at)}
                                             </span>
@@ -144,12 +145,15 @@ export default function HomeClient({
                                 </div>
 
                                 <div className="min-w-11 flex items-center justify-center">
-                                    <Image
-                                        src={getNotifImg(notif.type)}
-                                        width={20}
-                                        height={20}
-                                        alt=""
-                                    />
+                                    <Link href={getNotif(notif).link}>
+                                        <Image
+                                            //@ts-ignore
+                                            src={getNotif(notif).img}
+                                            width={20}
+                                            height={20}
+                                            alt=""
+                                        />
+                                    </Link>
                                 </div>
                             </div>
                         );
