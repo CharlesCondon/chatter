@@ -15,7 +15,6 @@ import BackButton from "../BackButton/BackButton";
 import defaultAvi from "@/components/icons/user.png";
 import heartImg from "@/components/icons/heart.png";
 import commentImg from "@/components/icons/chat.png";
-import { useUser } from "@/components/UserContext";
 
 interface Notif {
     id: string;
@@ -36,11 +35,12 @@ interface Notif {
 
 export default function HomeClient({
     initialNotifs,
+    currentUser,
 }: {
     initialNotifs: Notif[];
+    currentUser: string;
 }) {
     const [notifs, setNotifs] = useState<Notif[]>(initialNotifs);
-    const currentUser = useUser().profile;
 
     const handleRefresh = async () => {
         try {
@@ -77,11 +77,11 @@ export default function HomeClient({
     function getNotif(notif: Notif) {
         let result = { text: "", img: {}, link: "" };
         if (notif.type === "likes") {
-            result.link = `/posts/${currentUser.username}/${notif.related_id}`;
+            result.link = `/posts/${currentUser}/${notif.related_id}`;
             result.img = heartImg;
             result.text = " liked your post ";
         } else if (notif.type === "comments") {
-            result.link = `posts/${currentUser.username}/${notif.related_id}`;
+            result.link = `posts/${currentUser}/${notif.related_id}`;
             result.img = commentImg;
             result.text = " commented on your post ";
         } else {

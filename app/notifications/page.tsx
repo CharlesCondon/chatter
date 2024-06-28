@@ -1,5 +1,5 @@
 // app/home/page.tsx
-import { fetchNotifications } from "@/lib/auth-helpers/server";
+import { fetchNotifications, fetchUser } from "@/lib/auth-helpers/server";
 import dynamic from "next/dynamic";
 
 const NotifClient = dynamic(
@@ -30,6 +30,16 @@ export default async function Home() {
     if (!initialNotifs) {
         return <p>An error occured</p>;
     }
+    const currentUser = await fetchUser();
+    if (!currentUser) {
+        return (
+            <main className="relative min-h-full p-4">
+                <h2 className="text-lg">Error: could not validate user</h2>
+            </main>
+        );
+    }
     //console.log(initialNotifs);
-    return <NotifClient initialNotifs={initialNotifs} />;
+    return (
+        <NotifClient initialNotifs={initialNotifs} currentUser={currentUser} />
+    );
 }
