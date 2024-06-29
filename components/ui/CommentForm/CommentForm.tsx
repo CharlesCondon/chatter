@@ -3,7 +3,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import defaultAvi from "@/components/icons/user.png";
 import { useState, useEffect } from "react";
-import { handleRequest } from "@/lib/auth-helpers/client";
+import { handleRequest, handleRequestAlt } from "@/lib/auth-helpers/client";
 import { postComment } from "@/lib/auth-helpers/server";
 
 interface User {
@@ -31,7 +31,7 @@ export default function CommentForm({ user, post }: CommentFormProps) {
     const errorMessage = searchParams.get("status_description");
     const router = useRouter();
 
-    console.log(errorMessage);
+    //console.log(errorMessage);
 
     useEffect(() => {
         if (errorMessage) {
@@ -77,18 +77,19 @@ export default function CommentForm({ user, post }: CommentFormProps) {
         e.preventDefault();
         setPostDisabled(true);
         const formData = new FormData(e.currentTarget);
-        const currentPost = {
-            username: user.username,
-            post_id: post.id,
-            target_user: user.id,
-        };
-        const result = await postComment(formData, currentPost);
 
-        if (result === "Success") {
-            router.push(`/posts/${user.username}/${post.id}`);
-        } else {
-            router.push(result);
-        }
+        formData.set("username", user.username);
+        formData.set("post_id", post.id);
+        formData.set("target_user", user.id);
+        // const result = await postComment(formData, currentPost);
+        console.log(user.username);
+        await handleRequestAlt(formData, postComment, router);
+        // if (result === "Success") {
+        //     router.push(`/posts/${user.username}/${post.id}`);
+        // } else {
+        //     router.push(result);
+        // }
+        setPostDisabled(true);
     };
 
     return (

@@ -191,14 +191,17 @@ interface CommentPost{
 	post_id: string,
 	target_user: string
 }
-export async function postComment(formData: FormData, post:CommentPost) {
+export async function postComment(formData: FormData) {
 	const supabase = createClient()
 	const content = String(formData.get("content")).trim();
+	const username = String(formData.get("username")).trim();
+	const post_id = String(formData.get("post_id")).trim();
+	const target_user = String(formData.get("target_user")).trim();
 	let redirectPath: string;
-
+	//console.log(formData)
 	if (!content || content.trim().length === 0) {
 		return getStatusRedirect(
-			`/comment/${post.username}/${post.post_id}`,
+			`/comment/${username}/${post_id}`,
 			'Error!',
 			'Content cannot be empty.'
 		);
@@ -217,18 +220,16 @@ export async function postComment(formData: FormData, post:CommentPost) {
 		);
 	}
 
-	
-
 	if (content.length > 240) {
 		return getStatusRedirect(
-			`/comment/${post.username}/${post.post_id}`,
+			`/comment/${username}/${post_id}`,
 			'Error!',
 			'Content must be shorter than 240 characters'
 		);
 	}
 
 	const user_id = user.id;
-	const post_id = post.post_id
+	//const post_id = post.post_id
 	//@ts-ignore
 	const { data, error } = await supabase.rpc('add_comment_and_update_count', {
         user_id,
@@ -239,7 +240,7 @@ export async function postComment(formData: FormData, post:CommentPost) {
 	if (error) {
 		console.log(error)
 		return getStatusRedirect(
-			`/comment/${post.username}/${post.post_id}`,
+			`/comment/${username}/${post_id}`,
 			'Error!',
 			'Failed to publish post.',
 			true
@@ -248,7 +249,7 @@ export async function postComment(formData: FormData, post:CommentPost) {
 
 	const { error:notifError } = await supabase.from('notifications').insert(
 		{
-			user_id: post.target_user,
+			user_id: target_user,
 			created_at: new Date().toISOString(),
 			type: 'comments',
 			related_id: post_id,
@@ -260,14 +261,19 @@ export async function postComment(formData: FormData, post:CommentPost) {
 		console.log('Error creating comment notification')
 		console.log(notifError)
 		return getStatusRedirect(
-			`/comment/${post.username}/${post.post_id}`,
+			`/comment/${username}/${post_id}`,
 			'Error!',
 			'Failed to publish post.',
 			true
 		);
 	}
 
-	return 'Success'
+	return getStatusRedirect(
+		`/posts/${username}/${post_id}`,
+		'Success!',
+		'',
+		true
+	);
 }
 
 export async function fetchHomePosts() {

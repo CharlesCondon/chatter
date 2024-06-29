@@ -27,6 +27,25 @@ export async function handleRequest(
 		return await redirectToPath(redirectUrl);
 	}
 }
+export async function handleRequestAlt(
+	e: FormData,
+	requestFunc: (formData: FormData) => Promise<string>,
+	router: AppRouterInstance | null = null
+): Promise<boolean | void> {
+	// Prevent default form submission refresh
+	
+	const redirectUrl: string = await requestFunc(e);
+
+	if (router) {
+		// If client-side router is provided, use it to redirect
+		console.log('redirect via client')
+		return router.push(redirectUrl);
+	} else {
+		// Otherwise, redirect server-side
+		console.log('redirect via server')
+		return await redirectToPath(redirectUrl);
+	}
+}
 
 export async function signInWithOAuth(e: React.FormEvent<HTMLFormElement>) {
 	// Prevent default form submission refresh

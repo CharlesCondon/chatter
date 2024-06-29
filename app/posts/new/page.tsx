@@ -25,10 +25,11 @@ export default function PostNewPage() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setPostDisabled(true);
-        const formData = new FormData(e.currentTarget);
-        const result = await publishPost(formData);
-        router.push(result);
-        setPostDisabled(false);
+        await handleRequest(e, publishPost, router);
+        // const formData = new FormData(e.currentTarget);
+        // const result = await publishPost(formData);
+        // router.push(result);
+        //setPostDisabled(false);
     };
 
     return (
