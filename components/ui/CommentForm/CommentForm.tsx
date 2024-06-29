@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import defaultAvi from "@/components/icons/user.png";
 import { useState, useEffect } from "react";
@@ -26,7 +26,12 @@ interface CommentFormProps {
 
 export default function CommentForm({ user, post }: CommentFormProps) {
     const [formattedTime, setFormattedTime] = useState<string>("");
+    const [postDisabled, setPostDisabled] = useState<boolean>(false);
+    const searchParams = useSearchParams();
+    const errorMessage = searchParams.get("status_description");
     const router = useRouter();
+
+    console.log(errorMessage);
 
     useEffect(() => {
         const formatTime = (timestamp: string): string => {
@@ -64,6 +69,7 @@ export default function CommentForm({ user, post }: CommentFormProps) {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setPostDisabled(true);
         const formData = new FormData(e.currentTarget);
         const currentPost = {
             username: user.username,
@@ -74,6 +80,8 @@ export default function CommentForm({ user, post }: CommentFormProps) {
 
         if (result === "Success") {
             router.push(`/posts/${user.username}/${post.id}`);
+        } else {
+            router.push(result);
         }
     };
 
@@ -128,7 +136,9 @@ export default function CommentForm({ user, post }: CommentFormProps) {
                     </div>
                 </div>
             </div>
-
+            {errorMessage && (
+                <p className="text-red-500 text-sm pl-20">{errorMessage}</p>
+            )}
             <div className="flex flex-row pt-2 pr-4 pl-4 pb-2 gap-2">
                 <div className="pt-0.5 w-12 min-w-12">
                     <button onClick={handleProfileNav}>
@@ -157,7 +167,10 @@ export default function CommentForm({ user, post }: CommentFormProps) {
                             className="resize-none flex-1 p-2 bg-transparent text-xl w-full focus-visible:outline-none"
                         ></textarea>
                     </div>
-                    <button className="absolute top-4 right-4 border border-[var(--accent-light)] rounded-full bg-[var(--background-color)] text-sm py-1 px-4">
+                    <button
+                        disabled={postDisabled}
+                        className="absolute top-4 right-4 border border-[var(--accent-light)] rounded-full bg-[var(--background-color)] text-sm py-1 px-4"
+                    >
                         POST
                     </button>
                 </form>

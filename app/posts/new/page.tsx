@@ -10,16 +10,15 @@ import { useRouter } from "next/navigation";
 import BackButton from "@/components/ui/BackButton/BackButton";
 
 export default function PostNewPage() {
-    const { profile } = useUser();
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+    let [postDisabled, setPostDisabled] = useState<boolean>(false);
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
     //console.log(profile);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        setIsSubmitting(true); // Disable the button while the request is being handled
+        setPostDisabled(true); // Disable the button while the request is being handled
         await handleRequest(e, publishPost, router);
-        setIsSubmitting(false);
+        //setPostDisabled(false);
     };
 
     return (
@@ -28,8 +27,6 @@ export default function PostNewPage() {
                 <BackButton />
             </nav>
 
-            {/* <h1>{profile ? profile.full_name : ""}</h1>
-            <h2>@{profile ? profile.username : ""}</h2> */}
             <form
                 className=" p-4 flex flex-col gap-4 w-full"
                 onSubmit={(e) => handleSubmit(e)}
@@ -52,7 +49,10 @@ export default function PostNewPage() {
                         className="resize-none flex-1 p-2 bg-transparent text-xl w-full focus-visible:outline-none"
                     ></textarea>
                 </div>
-                <button className="absolute top-4 right-4 border border-[var(--accent-light)] rounded-full bg-[var(--background-color)] text-sm py-1 px-4">
+                <button
+                    disabled={postDisabled}
+                    className="absolute top-4 right-4 border border-[var(--accent-light)] rounded-full bg-[var(--background-color)] text-sm py-1 px-4"
+                >
                     POST
                 </button>
             </form>
