@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useUser } from "@/components/UserContext";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { handleRequest } from "@/lib/auth-helpers/client";
 import tempAvatar from "@/components/icons/user.png";
 import Image from "next/image";
@@ -33,55 +33,48 @@ export default function PostNewPage() {
     };
 
     return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <main className=" flex flex-col gap-5 min-h-screen">
-                <nav className="p-4 border-[var(--accent-light)] border-b">
-                    <BackButton />
-                </nav>
-                {errorMessage && (
-                    <p className="text-red-500 text-sm text-center">
-                        {errorMessage}
-                    </p>
-                )}
-                <form
-                    className=" p-4 flex flex-col gap-4 w-full"
-                    onSubmit={(e) => handleSubmit(e)}
-                >
-                    <div className="flex gap-4">
-                        <div className="mt-2">
-                            {/* <img
+        <main className=" flex flex-col gap-5 min-h-screen">
+            <nav className="p-4 border-[var(--accent-light)] border-b">
+                <BackButton />
+            </nav>
+            {errorMessage && (
+                <p className="text-red-500 text-sm text-center">
+                    {errorMessage}
+                </p>
+            )}
+            <form
+                className=" p-4 flex flex-col gap-4 w-full"
+                onSubmit={(e) => handleSubmit(e)}
+            >
+                <div className="flex gap-4">
+                    <div className="mt-2">
+                        {/* <img
                             src={
                                 profile.avatar_url ? profile.avatar_url : tempAvatar
                             }
                             alt=""
                         /> */}
-                            <Image
-                                src={tempAvatar}
-                                width={50}
-                                height={50}
-                                alt=""
-                            />
-                        </div>
-                        <textarea
-                            id="content"
-                            name="content"
-                            rows={7}
-                            placeholder="What's going on?"
-                            className="resize-none flex-1 p-2 bg-transparent text-xl w-full focus-visible:outline-none"
-                        ></textarea>
+                        <Image src={tempAvatar} width={50} height={50} alt="" />
                     </div>
-                    <button
-                        disabled={postDisabled}
-                        className={`absolute top-4 right-4 border border-[var(--accent-light)] rounded-full  text-sm py-1 px-4 ${
-                            postDisabled
-                                ? "bg-[var(--background-alt)]"
-                                : "bg-[var(--background-color)]"
-                        }`}
-                    >
-                        POST
-                    </button>
-                </form>
-            </main>
-        </Suspense>
+                    <textarea
+                        id="content"
+                        name="content"
+                        rows={7}
+                        placeholder="What's going on?"
+                        className="resize-none flex-1 p-2 bg-transparent text-xl w-full focus-visible:outline-none"
+                    ></textarea>
+                </div>
+                <button
+                    disabled={postDisabled}
+                    className={`absolute top-4 right-4 border border-[var(--accent-light)] rounded-full  text-sm py-1 px-4 ${
+                        postDisabled
+                            ? "bg-[var(--background-alt)]"
+                            : "bg-[var(--background-color)]"
+                    }`}
+                >
+                    POST
+                </button>
+            </form>
+        </main>
     );
 }

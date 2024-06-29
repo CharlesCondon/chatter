@@ -15,9 +15,9 @@ export default async function Navbar() {
             <Link href={"/home"}>
                 <Image src={homeImg} width={25} height={25} alt="Home" />
             </Link>
-            {/* <Link href={"/explore"}>
+            <Link href={"/explore"}>
                 <Image src={searchImg} width={23} height={23} alt="Explore" />
-            </Link> */}
+            </Link>
             <Link href={"/notifications"}>
                 <Image
                     src={notifImg}

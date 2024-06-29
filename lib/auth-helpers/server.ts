@@ -17,7 +17,7 @@ export async function redirectToPath(path: string) {
 }
 
 export async function fetchUser() {
-	const supabase = createClient()
+	const supabase = createClient();
 	const {
 		data: { user },
 	} = await supabase.auth.getUser();
@@ -53,6 +53,27 @@ export async function SignOut(path: string) {
 	}
 
 	return '/home';
+}
+
+export async function fetchSearchResults(query: string) {
+	const supabase = createClient();
+
+    const { data: users, error: userError } = await supabase
+        .from("profiles")
+        .select("id, username, full_name, avatar_url, verified, bio")
+        .ilike("username", `%${query}%`);
+
+    const { data: posts, error: postError } = await supabase
+        .from("posts")
+        .select("id, content, created_at, user_id, likes, comment_count, profiles:profiles(id, username, full_name, avatar_url, verified)")
+        .ilike("content", `%${query}%`);
+
+    if (userError || postError) {
+        console.error("Error fetching search results", userError, postError);
+        return { users: [], posts: [] };
+    }
+
+    return { users, posts };
 }
 
 export async function followUnfollow(text: string, followTarget: string) {
