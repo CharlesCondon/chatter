@@ -34,6 +34,12 @@ export default function CommentForm({ user, post }: CommentFormProps) {
     console.log(errorMessage);
 
     useEffect(() => {
+        if (errorMessage) {
+            setPostDisabled(false);
+        }
+    }, [errorMessage]);
+
+    useEffect(() => {
         const formatTime = (timestamp: string): string => {
             const postDate = new Date(timestamp);
             const currentDate = new Date();
@@ -169,7 +175,11 @@ export default function CommentForm({ user, post }: CommentFormProps) {
                     </div>
                     <button
                         disabled={postDisabled}
-                        className="absolute top-4 right-4 border border-[var(--accent-light)] rounded-full bg-[var(--background-color)] text-sm py-1 px-4"
+                        className={`absolute top-4 right-4 border border-[var(--accent-light)] rounded-full  text-sm py-1 px-4 ${
+                            postDisabled
+                                ? "bg-[var(--background-alt)]"
+                                : "bg-[var(--background-color)]"
+                        }`}
                     >
                         POST
                     </button>

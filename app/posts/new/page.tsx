@@ -1,24 +1,34 @@
 "use client";
 import Link from "next/link";
 import { useUser } from "@/components/UserContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { handleRequest } from "@/lib/auth-helpers/client";
 import tempAvatar from "@/components/icons/user.png";
 import Image from "next/image";
 import { publishPost } from "@/lib/auth-helpers/server";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import BackButton from "@/components/ui/BackButton/BackButton";
 
 export default function PostNewPage() {
     let [postDisabled, setPostDisabled] = useState<boolean>(false);
     const router = useRouter();
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const searchParams = useSearchParams();
+    const errorMessage = searchParams.get("status_description");
     //console.log(profile);
 
+    useEffect(() => {
+        if (errorMessage) {
+            setPostDisabled(false);
+        }
+    }, [errorMessage]);
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        setPostDisabled(true); // Disable the button while the request is being handled
-        await handleRequest(e, publishPost, router);
-        //setPostDisabled(false);
+        e.preventDefault();
+        setPostDisabled(true);
+        const formData = new FormData(e.currentTarget);
+        const result = await publishPost(formData);
+        router.push(result);
+        setPostDisabled(false);
     };
 
     return (
@@ -26,7 +36,11 @@ export default function PostNewPage() {
             <nav className="p-4 border-[var(--accent-light)] border-b">
                 <BackButton />
             </nav>
-
+            {errorMessage && (
+                <p className="text-red-500 text-sm text-center">
+                    {errorMessage}
+                </p>
+            )}
             <form
                 className=" p-4 flex flex-col gap-4 w-full"
                 onSubmit={(e) => handleSubmit(e)}
@@ -51,7 +65,11 @@ export default function PostNewPage() {
                 </div>
                 <button
                     disabled={postDisabled}
-                    className="absolute top-4 right-4 border border-[var(--accent-light)] rounded-full bg-[var(--background-color)] text-sm py-1 px-4"
+                    className={`absolute top-4 right-4 border border-[var(--accent-light)] rounded-full  text-sm py-1 px-4 ${
+                        postDisabled
+                            ? "bg-[var(--background-alt)]"
+                            : "bg-[var(--background-color)]"
+                    }`}
                 >
                     POST
                 </button>
