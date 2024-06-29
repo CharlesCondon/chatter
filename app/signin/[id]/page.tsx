@@ -14,6 +14,7 @@ import Separator from "@/components/ui/AuthForms/Separator";
 import ForgotPassword from "@/components/ui/AuthForms/ForgotPassword";
 import UpdatePassword from "@/components/ui/AuthForms/UpdatePassword";
 import SignUp from "@/components/ui/AuthForms/Signup";
+import { Suspense } from "react";
 
 export default async function SignIn({
     params,
@@ -55,34 +56,35 @@ export default async function SignIn({
     }
 
     return (
-        <div className="flex justify-center height-screen-helper">
-            <div className="flex flex-col justify-between max-w-lg p-3 m-auto w-80 ">
-                <div className="flex justify-center pb-12 "></div>
+        <Suspense fallback={<div>Loading...</div>}>
+            <div className="flex justify-center height-screen-helper">
+                <div className="flex flex-col justify-between max-w-lg p-3 m-auto w-80 ">
+                    <div className="flex justify-center pb-12 "></div>
 
-                {/* {viewProp === "" && (
+                    {/* {viewProp === "" && (
                         <PasswordSignIn
                             allowEmail={allowEmail}
                             redirectMethod={redirectMethod}
                         />
                     )} */}
-                {viewProp === "forgot_password" && (
-                    <ForgotPassword
-                        allowEmail={allowEmail}
-                        redirectMethod={redirectMethod}
-                        disableButton={searchParams.disable_button}
-                    />
-                )}
-                {viewProp === "update_password" && (
-                    <UpdatePassword redirectMethod={redirectMethod} />
-                )}
-                {viewProp === "signup" && (
-                    <SignUp
-                        allowEmail={allowEmail}
-                        redirectMethod={redirectMethod}
-                    />
-                )}
+                    {viewProp === "forgot_password" && (
+                        <ForgotPassword
+                            allowEmail={allowEmail}
+                            redirectMethod={redirectMethod}
+                            disableButton={searchParams.disable_button}
+                        />
+                    )}
+                    {viewProp === "update_password" && (
+                        <UpdatePassword redirectMethod={redirectMethod} />
+                    )}
+                    {viewProp === "signup" && (
+                        <SignUp
+                            allowEmail={allowEmail}
+                            redirectMethod={redirectMethod}
+                        />
+                    )}
 
-                {/* {viewProp !== "update_password" &&
+                    {/* {viewProp !== "update_password" &&
                         viewProp !== "signup" &&
                         allowOauth && (
                             <>
@@ -90,7 +92,8 @@ export default async function SignIn({
                                 <OauthSignIn />
                             </>
                         )} */}
+                </div>
             </div>
-        </div>
+        </Suspense>
     );
 }

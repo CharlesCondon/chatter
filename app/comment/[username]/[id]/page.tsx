@@ -5,6 +5,7 @@ import CommentForm from "@/components/ui/CommentForm/CommentForm";
 import DedicatedPost from "@/components/ui/DedicatedPost/DedicatedPost";
 import Navbar from "@/components/ui/Navbar/Navbar";
 import { fetchComment } from "@/lib/auth-helpers/server";
+import { Suspense } from "react";
 
 interface User {
     id: string;
@@ -42,16 +43,18 @@ export default async function DedicatedPostPage({
     const profile: User = profileData.profile;
 
     return (
-        <main className=" flex flex-col gap-5 min-h-screen">
-            <div className="pl-4 py-4 bg-[var(--background-alt)] border-[var(--accent-light)] border-b">
-                <BackButton />
-            </div>
-            <CommentForm
-                //@ts-ignore
-                user={profile}
-                post={post}
-            />
-            <Navbar />
-        </main>
+        <Suspense fallback={<div>Loading...</div>}>
+            <main className=" flex flex-col gap-5 min-h-screen">
+                <div className="pl-4 py-4 bg-[var(--background-alt)] border-[var(--accent-light)] border-b">
+                    <BackButton />
+                </div>
+                <CommentForm
+                    //@ts-ignore
+                    user={profile}
+                    post={post}
+                />
+                <Navbar />
+            </main>
+        </Suspense>
     );
 }
