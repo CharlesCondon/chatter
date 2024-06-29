@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/components/ui/Button";
-import React from "react";
+import React, { Suspense } from "react";
 import Link from "next/link";
 import { signUp } from "@/lib/auth-helpers/server";
 import { handleRequest } from "@/lib/auth-helpers/client";
@@ -79,82 +79,86 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
     };
 
     return (
-        <main className="p-10 flex flex-col gap-5 min-h-screen">
-            <h1 className="text-5xl text-center">Sign Up</h1>
-            <form
-                className="flex flex-col gap-2 "
-                onSubmit={(e) => handleSubmit(e)}
-            >
-                <input
-                    required
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    placeholder="Email"
-                    className="p-2 bg-[var(--background-alt)]"
-                ></input>
-
-                <input
-                    required
-                    id="displayName"
-                    name="displayName"
-                    type="text"
-                    placeholder="Display Name"
-                    className="p-2 bg-[var(--background-alt)]"
-                ></input>
-                {errors.displayName && (
-                    <span className="text-red-500 text-sm">
-                        {errors.displayName}
-                    </span>
-                )}
-                <input
-                    required
-                    id="username"
-                    name="username"
-                    type="text"
-                    placeholder="Username"
-                    className="p-2 bg-[var(--background-alt)]"
-                ></input>
-                {errors.username && (
-                    <span className="text-red-500 text-sm">
-                        {errors.username}
-                    </span>
-                )}
-                <input
-                    required
-                    id="password"
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    className="p-2 bg-[var(--background-alt)]"
-                ></input>
-                <input
-                    required
-                    id="password2"
-                    name="password2"
-                    type="password"
-                    placeholder="Confirm Password"
-                    className="p-2 bg-[var(--background-alt)]"
-                ></input>
-                {errors.password && (
-                    <span className="text-red-500 text-sm">
-                        {errors.password}
-                    </span>
-                )}
-                {errorMessage && (
-                    <span className="text-red-500 text-sm">{errorMessage}</span>
-                )}
-                <Button
-                    variant="slim"
-                    type="submit"
-                    className="mt-1"
-                    loading={isSubmitting}
+        <Suspense fallback={<div>Loading...</div>}>
+            <main className="p-10 flex flex-col gap-5 min-h-screen">
+                <h1 className="text-5xl text-center">Sign Up</h1>
+                <form
+                    className="flex flex-col gap-2 "
+                    onSubmit={(e) => handleSubmit(e)}
                 >
-                    Submit
-                </Button>
-            </form>
-            <Link href={"/signin"}>Log In</Link>
-        </main>
+                    <input
+                        required
+                        id="email"
+                        name="email"
+                        type="email"
+                        autoComplete="email"
+                        placeholder="Email"
+                        className="p-2 bg-[var(--background-alt)]"
+                    ></input>
+
+                    <input
+                        required
+                        id="displayName"
+                        name="displayName"
+                        type="text"
+                        placeholder="Display Name"
+                        className="p-2 bg-[var(--background-alt)]"
+                    ></input>
+                    {errors.displayName && (
+                        <span className="text-red-500 text-sm">
+                            {errors.displayName}
+                        </span>
+                    )}
+                    <input
+                        required
+                        id="username"
+                        name="username"
+                        type="text"
+                        placeholder="Username"
+                        className="p-2 bg-[var(--background-alt)]"
+                    ></input>
+                    {errors.username && (
+                        <span className="text-red-500 text-sm">
+                            {errors.username}
+                        </span>
+                    )}
+                    <input
+                        required
+                        id="password"
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        className="p-2 bg-[var(--background-alt)]"
+                    ></input>
+                    <input
+                        required
+                        id="password2"
+                        name="password2"
+                        type="password"
+                        placeholder="Confirm Password"
+                        className="p-2 bg-[var(--background-alt)]"
+                    ></input>
+                    {errors.password && (
+                        <span className="text-red-500 text-sm">
+                            {errors.password}
+                        </span>
+                    )}
+                    {errorMessage && (
+                        <span className="text-red-500 text-sm">
+                            {errorMessage}
+                        </span>
+                    )}
+                    <Button
+                        variant="slim"
+                        type="submit"
+                        className="mt-1"
+                        loading={isSubmitting}
+                    >
+                        Submit
+                    </Button>
+                </form>
+                <Link href={"/signin"}>Log In</Link>
+            </main>
+        </Suspense>
     );
 }
