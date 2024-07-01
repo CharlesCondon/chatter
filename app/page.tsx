@@ -32,7 +32,7 @@ export default function Home() {
             </Link>
             {/* <Link href={"/home"}>Home</Link> */}
             <div className="fixed bottom-0 left-0 text-xs flex justify-between w-full px-2 py-1">
-                <span>v.0.5</span>
+                <span>v.0.7</span>
                 <span>
                     by:{" "}
                     <a
