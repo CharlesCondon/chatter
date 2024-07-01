@@ -11,8 +11,13 @@ import {
 
 export default function Home() {
     return (
-        <main className="flex min-h-screen flex-col items-center gap-3 p-24 max-w-lg mx-auto">
-            <h1 className="text-5xl">Chatter</h1>
+        <main className="flex min-h-screen flex-col items-center gap-3 p-20 pt-24 max-w-lg mx-auto">
+            <h1 className="text-6xl">Chatter</h1>
+            <div className="text-center">
+                <p className="text-xl">A place for positivity</p>
+                <p className="text-xs">(for Charles)</p>
+            </div>
+
             <Link
                 href={"/signin/"}
                 className="border bg-[var(--accent-color)] p-2 w-full text-center text-[var(--background-color)] rounded"

@@ -154,6 +154,17 @@ export default function SignUp({ allowEmail, redirectMethod }: SignUpProps) {
                     Submit
                 </Button>
             </form>
+            <p className="text-xs">
+                By signing up, you agree to my{" "}
+                <a
+                    href={"/terms"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline"
+                >
+                    Terms and Privacy Policy
+                </a>
+            </p>
             <Link href={"/signin"}>Log In</Link>
         </main>
     );

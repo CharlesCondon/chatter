@@ -144,7 +144,9 @@ export default function CommentForm({ user, post }: CommentFormProps) {
                 </div>
             </div>
             {errorMessage && (
-                <p className="text-red-500 text-sm pl-20">{errorMessage}</p>
+                <p className="text-red-500 text-sm px-4 text-center">
+                    {errorMessage}
+                </p>
             )}
             <div className="flex flex-row pt-2 pr-4 pl-4 pb-2 gap-2">
                 <div className="pt-0.5 w-12 min-w-12">

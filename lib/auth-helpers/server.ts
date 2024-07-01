@@ -6,6 +6,8 @@ import { redirect } from 'next/navigation';
 import { getURL, getErrorRedirect, getStatusRedirect } from '../helpers';
 import { getAuthTypes } from '../auth-helpers/settings';
 import { v4 as uuidv4 } from "uuid";
+const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1');
+const { IamAuthenticator } = require('ibm-watson/auth');
 
 function isValidEmail(email: string) {
 	var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -249,8 +251,50 @@ export async function postComment(formData: FormData) {
 		);
 	}
 
+	const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
+		version: '2022-04-07',
+		authenticator: new IamAuthenticator({
+		  apikey: `${process.env.IBM_KEY}`,
+		}),
+		serviceUrl: `${process.env.IBM_URL}`,
+	});
+
+	const analyzeParams = {
+		'text': content,
+		'features': {
+			'sentiment': {
+                'document': true
+            }
+		},
+		'language': 'en'
+	};
+
+	let analysisLabel = ''
+	await naturalLanguageUnderstanding.analyze(analyzeParams)
+		// @ts-ignore
+		.then(analysisResults => {
+			//console.log(JSON.stringify(analysisResults.result, null, 2));
+			analysisLabel = analysisResults.result.sentiment.document.label;
+		})
+		// @ts-ignore
+		.catch(err => {
+			console.log('error:', err);
+			return getStatusRedirect(
+				`/comment/${username}/${post_id}`,
+				'Error!',
+				'Could not validate post, try again.'
+			);
+		});
+
+	if (analysisLabel === 'negative') {
+		return getStatusRedirect(
+			`/comment/${username}/${post_id}`,
+			'Error!',
+			'Oops, looks like your comment is not positive enough. Try friendlier language and try again!'
+		);
+	}
+
 	const user_id = user.id;
-	//const post_id = post.post_id
 	//@ts-ignore
 	const { data, error } = await supabase.rpc('add_comment_and_update_count', {
         user_id,
@@ -789,6 +833,50 @@ export async function publishPost(formData: FormData) {
 			'/posts/new',
 			'Error!',
 			'Content must be shorter than 240 characters'
+		);
+	}
+
+	const naturalLanguageUnderstanding = new NaturalLanguageUnderstandingV1({
+		version: '2022-04-07',
+		authenticator: new IamAuthenticator({
+		  apikey: `${process.env.IBM_KEY}`,
+		}),
+		serviceUrl: `${process.env.IBM_URL}`,
+	});
+
+	const analyzeParams = {
+		'text': content,
+		'features': {
+			'sentiment': {
+                'document': true
+            }
+		},
+		'language': 'en'
+	};
+
+	let analysisLabel = ''
+	await naturalLanguageUnderstanding.analyze(analyzeParams)
+		// @ts-ignore
+		.then(analysisResults => {
+			//console.log(JSON.stringify(analysisResults.result, null, 2));
+			analysisLabel = analysisResults.result.sentiment.document.label;
+		})
+		// @ts-ignore
+		.catch(err => {
+			console.log('error:', err);
+			return getStatusRedirect(
+				'/posts/new',
+				'Error!',
+				'Could not validate post, try again.'
+			);
+		});
+
+	//console.log(analysisLabel)
+	if (analysisLabel === 'negative') {
+		return getStatusRedirect(
+			'/posts/new',
+			'Error!',
+			'Oops, looks like your post is not positive enough. Try friendlier language and try again!'
 		);
 	}
 
