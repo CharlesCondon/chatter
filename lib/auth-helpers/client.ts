@@ -5,6 +5,7 @@ import { type Provider } from '@supabase/supabase-js';
 import { getURL } from '@/lib/helpers';
 import { redirectToPath } from './server';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { v4 as uuidv4 } from 'uuid';
 
 export async function handleRequest(
 	e: React.FormEvent<HTMLFormElement>,
@@ -62,4 +63,35 @@ export async function signInWithOAuth(e: React.FormEvent<HTMLFormElement>) {
 			redirectTo: redirectURL
 		}
 	});
+}
+
+export async function uploadAvatarClient(file: File, userId: string): Promise<string> {
+	const supabase = createClient();
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${uuidv4()}.${fileExt}`;
+    const filePath = `${userId}/${fileName}`;
+
+    const { error } = await supabase.storage
+        .from("avatars")
+        .upload(filePath, file, {
+            cacheControl: "3600",
+            upsert: true,
+        });
+
+    if (error) {
+        console.error("Error uploading avatar:", error);
+        return "";
+    }
+
+    const { data:publicURL} = supabase
+        .storage
+        .from("avatars")
+        .getPublicUrl(filePath);
+
+    if (!publicURL) {
+        console.error("Error getting public URL for avatar");
+        return "";
+    }
+
+    return publicURL.publicUrl;
 }

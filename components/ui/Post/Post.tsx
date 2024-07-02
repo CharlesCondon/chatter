@@ -137,16 +137,19 @@ export default function Post({
         >
             <div className="pt-0.5">
                 <button onClick={handleProfileNav}>
-                    <Image
-                        src={
-                            avi === "/images/default-avatar.png"
-                                ? defaultAvi
-                                : avi
-                        }
-                        width={50}
-                        height={50}
-                        alt=""
-                    />
+                    <div className="w-14 h-14 rounded-full overflow-hidden">
+                        <Image
+                            src={
+                                avi === "/images/default-avatar.png"
+                                    ? defaultAvi
+                                    : avi
+                            }
+                            width={50}
+                            height={50}
+                            alt=""
+                            className="w-full object-contain"
+                        />
+                    </div>
                 </button>
             </div>
             <div className="flex flex-col flex-1 gap-1">

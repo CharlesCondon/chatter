@@ -114,7 +114,7 @@ export default function HomeClient({
                                 className="flex flex-row gap-2 px-4 py-2 border-b border-[var(--accent-light)] justify-between"
                             >
                                 <div className="flex flex-row gap-2 ">
-                                    <div className="min-w-11 flex items-center">
+                                    <div className="min-w-12 h-12 flex items-center rounded-full overflow-hidden">
                                         <Image
                                             src={
                                                 notif.creator_profile
@@ -124,9 +124,10 @@ export default function HomeClient({
                                                     : notif.creator_profile
                                                           .avatar_url
                                             }
-                                            width={40}
-                                            height={40}
+                                            width={46}
+                                            height={46}
                                             alt=""
+                                            className="w-full object-contain"
                                         />
                                     </div>
 

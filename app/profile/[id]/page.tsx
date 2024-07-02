@@ -203,19 +203,22 @@ export default async function ProfilePage({
                 </h1>
                 <div className="basis-6"></div>
             </nav>
-            <div className="flex flex-row gap-4 p-4 mt-16">
-                <Image
-                    src={
-                        profile.profile.avatar_url ===
-                        "/images/default-avatar.png"
-                            ? defaultAvi
-                            : profile.profile.avatar_url
-                    }
-                    width={100}
-                    height={100}
-                    alt=""
-                    style={{ objectFit: "contain" }}
-                />
+            <div className="flex flex-row gap-4 p-4 mt-16 ">
+                <div className="w-20 h-20 rounded-full overflow-hidden">
+                    <Image
+                        src={
+                            profile.profile.avatar_url ===
+                            "/images/default-avatar.png"
+                                ? defaultAvi
+                                : profile.profile.avatar_url
+                        }
+                        width={100}
+                        height={100}
+                        alt=""
+                        style={{ objectFit: "contain" }}
+                    />
+                </div>
+
                 <div className="flex-1 flex flex-col justify-between">
                     <div className="flex flex-row gap-2 flex-wrap">
                         <h1 className="text-2xl text-ellipsis ">

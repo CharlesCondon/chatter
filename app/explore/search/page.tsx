@@ -63,7 +63,7 @@ export default function Search() {
     };
 
     return (
-        <div>
+        <div className="mb-16">
             <div className="flex gap-4 p-4 border-b border-[var(--accent-light)] bg-[var(--background-alt)]">
                 <BackButton />
                 <SearchBar />
@@ -76,17 +76,20 @@ export default function Search() {
                         className="mb-4 p-4 gap-4 flex flex-row "
                     >
                         <button onClick={() => handleProfileNav(user.username)}>
-                            <Image
-                                src={
-                                    user.avatar_url ===
-                                    "/images/default-avatar.png"
-                                        ? defaultAvi
-                                        : user.avatar_url
-                                }
-                                width={50}
-                                height={50}
-                                alt=""
-                            />
+                            <div className="w-14 h-14 rounded-full overflow-hidden">
+                                <Image
+                                    src={
+                                        user.avatar_url ===
+                                        "/images/default-avatar.png"
+                                            ? defaultAvi
+                                            : user.avatar_url
+                                    }
+                                    width={50}
+                                    height={50}
+                                    alt=""
+                                    className="w-full object-contain"
+                                />
+                            </div>
                         </button>
                         <button
                             onClick={() => handleProfileNav(user.username)}

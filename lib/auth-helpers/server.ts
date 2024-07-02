@@ -709,16 +709,49 @@ export async function likeUnlike(post_id: string, option: string, target_user: s
     return 'success';
 }
 
+export async function uploadAvatar(file: File, userId: string): Promise<string> {
+	const supabase = createClient();
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${uuidv4()}.${fileExt}`;
+    const filePath = `${userId}/${fileName}`;
+
+    const { error } = await supabase.storage
+        .from("avatars")
+        .upload(filePath, file, {
+            cacheControl: "3600",
+            upsert: true,
+        });
+
+    if (error) {
+        console.error("Error uploading avatar:", error);
+        return "";
+    }
+
+    const { data:publicURL } = supabase
+        .storage
+        .from("avatars")
+        .getPublicUrl(filePath);
+
+    if (!publicURL) {
+        console.error("Error getting public URL for avatar");
+        return '';
+    }
+
+    return publicURL.publicUrl;
+}
+
 export async function updateProfile(formData: FormData) {
 	let redirectPath: string;
 
 	const displayName = String(formData.get("displayName")).trim();
 	const username = String(formData.get("username")).trim();
 	const bio = String(formData.get("bio")).trim();
+	const avatar = String(formData.get("avatar"));
 
-	console.log('display name: ' + displayName)
-	console.log('username: ' + username)
-	console.log('bio: ' + bio)
+	console.log('display name: ' + displayName);
+	console.log('username: ' + username);
+	console.log('bio: ' + bio);
+	console.log('avatar: ' + avatar);
 
 	const supabase = createClient();
 
@@ -737,7 +770,8 @@ export async function updateProfile(formData: FormData) {
 	const { error } = await supabase.from('profiles').update({
 		full_name: displayName,
 		username: username,
-		bio: bio
+		bio: bio,
+		avatar_url: avatar
 	}).eq('id', user.id);
 
 	if (error) {
