@@ -229,8 +229,9 @@ export default async function ProfilePage({
                                 ✓
                             </span>
                         )}
-
-                        <SettingsModal user={profile.profile.username} />
+                        {profile.isUser && (
+                            <SettingsModal user={profile.profile.username} />
+                        )}
                     </div>
                     {!profile.isUser ? (
                         <div className="flex flex-row gap-2">
@@ -246,7 +247,7 @@ export default async function ProfilePage({
                                 />
                             )}
 
-                            <button className="border border-black py-1 px-2 rounded-lg">
+                            {/* <button className="border border-black py-1 px-2 rounded-lg">
                                 Message
                             </button>
                             <button className="border border-black py-1 px-2 rounded-lg">
@@ -256,7 +257,7 @@ export default async function ProfilePage({
                                     height={17}
                                     alt="share"
                                 />
-                            </button>
+                            </button> */}
                         </div>
                     ) : (
                         <div className="flex flex-row gap-2">
