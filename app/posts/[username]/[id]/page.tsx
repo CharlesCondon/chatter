@@ -65,7 +65,7 @@ export default async function DedicatedPostPage({
             ) : (
                 <></>
             )}
-            <Navbar />
+            <Navbar activePage={""} />
         </main>
     );
 }

@@ -151,12 +151,12 @@ export default function Post({
                     </div>
                 </button>
             </div>
-            <div className="flex flex-col flex-1 gap-1">
-                <div className="flex flex-row justify-between items-center relative">
-                    <div className="flex flex-row gap-2 items-center">
+            <div className="flex flex-col flex-1 gap-2">
+                <div className="flex flex-row justify-between max-w-full items-center relative">
+                    <div className="flex flex-row gap-2 items-center max-w-full flex-wrap gap-y-0">
                         <button
                             onClick={handleProfileNav}
-                            className="font-bold text-xl"
+                            className="font-bold text-lg truncate"
                         >
                             {display}
                         </button>
@@ -165,9 +165,11 @@ export default function Post({
                                 ✓
                             </span>
                         )}
-                        <p className="opacity-50">@{user}</p>
-                        <p className="opacity-50">·</p>
-                        <p className="opacity-50">{formattedTime}</p>
+                        <div className="flex flex-row gap-2 items-center">
+                            <p className="opacity-50 truncate ">@{user}</p>
+                            <p className="opacity-50">·</p>
+                            <p className="opacity-50">{formattedTime}</p>
+                        </div>
                     </div>
                     {/* {currentUser && currentUser.username === user && (
                         <div onClick={() => handlePostOptions}>

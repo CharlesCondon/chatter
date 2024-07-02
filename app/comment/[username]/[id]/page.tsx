@@ -53,7 +53,7 @@ export default async function DedicatedPostPage({
                     user={profile}
                     post={post}
                 />
-                <Navbar />
+                <Navbar activePage={""} />
             </main>
         </Suspense>
     );
