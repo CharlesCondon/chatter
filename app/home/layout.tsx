@@ -13,7 +13,7 @@ export default function PostsLayout({
                 <h1 className="text-center p-4">Chatter</h1>
             </Link> */}
             {children}
-            <Navbar></Navbar>
+            <Navbar activePage={"home"}></Navbar>
         </main>
     );
 }

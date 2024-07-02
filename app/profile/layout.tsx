@@ -8,7 +8,7 @@ export default function PostsLayout({
     return (
         <section>
             {children}
-            <Navbar></Navbar>
+            <Navbar activePage={"profile"}></Navbar>
         </section>
     );
 }

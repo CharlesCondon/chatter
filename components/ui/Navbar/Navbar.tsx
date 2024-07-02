@@ -1,26 +1,44 @@
 import Link from "next/link";
 import Image from "next/image";
 import homeImg from "@/components/icons/home.png";
+import homeActive from "@/components/icons/homeActive.png";
 import searchImg from "@/components/icons/search.png";
+import searchActive from "@/components/icons/searchActive.png";
 import notifImg from "@/components/icons/bell.png";
+import notifActive from "@/components/icons/notifActive.png";
 import dmImg from "@/components/icons/send.png";
 import profileImg from "@/components/icons/user.png";
+import profileActive from "@/components/icons/profileActive.png";
 import { fetchUser } from "@/lib/auth-helpers/server";
 
-export default async function Navbar() {
+interface NavbarProps {
+    activePage: string;
+}
+
+export default async function Navbar({ activePage }: NavbarProps) {
     const profile = await fetchUser();
 
     return (
         <nav className="flex flex-row items-center justify-between p-4 fixed  bottom-0 w-screen border-[var(--accent-light)] border-t">
             <Link href={"/home"}>
-                <Image src={homeImg} width={25} height={25} alt="Home" />
+                <Image
+                    src={activePage === "home" ? homeActive : homeImg}
+                    width={25}
+                    height={25}
+                    alt="Home"
+                />
             </Link>
             <Link href={"/explore"}>
-                <Image src={searchImg} width={23} height={23} alt="Explore" />
+                <Image
+                    src={activePage === "explore" ? searchActive : searchImg}
+                    width={23}
+                    height={23}
+                    alt="Explore"
+                />
             </Link>
             <Link href={"/notifications"}>
                 <Image
-                    src={notifImg}
+                    src={activePage === "notif" ? notifActive : notifImg}
                     width={27}
                     height={27}
                     alt="Notifications"
@@ -30,7 +48,12 @@ export default async function Navbar() {
                 <Image src={dmImg} width={25} height={25} alt="Messages" />
             </Link> */}
             <Link href={profile ? `/profile/${profile}` : "/home"}>
-                <Image src={profileImg} width={25} height={25} alt="Profile" />
+                <Image
+                    src={activePage === "profile" ? profileActive : profileImg}
+                    width={25}
+                    height={25}
+                    alt="Profile"
+                />
             </Link>
         </nav>
     );

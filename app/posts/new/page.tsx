@@ -1,6 +1,4 @@
 "use client";
-import Link from "next/link";
-import { useUser } from "@/components/UserContext";
 import { useEffect, useState } from "react";
 import { handleRequest } from "@/lib/auth-helpers/client";
 import tempAvatar from "@/components/icons/user.png";
@@ -9,31 +7,43 @@ import { publishPost } from "@/lib/auth-helpers/server";
 import { useRouter, useSearchParams } from "next/navigation";
 import BackButton from "@/components/ui/BackButton/BackButton";
 
+const DEBOUNCE_DELAY = 2000; // 2 seconds
+
 export default function PostNewPage() {
-    let [postDisabled, setPostDisabled] = useState<boolean>(false);
+    const [postDisabled, setPostDisabled] = useState<boolean>(false);
+    const [submissionCount, setSubmissionCount] = useState<number>(0);
     const router = useRouter();
     const searchParams = useSearchParams();
     const errorMessage = searchParams.get("status_description");
-    //console.log(profile);
 
+    // Re-enable the button whenever there's an error or after a debounce period
     useEffect(() => {
         if (errorMessage) {
             setPostDisabled(false);
         }
-    }, [errorMessage]);
+    }, [errorMessage]); // Depend on submissionCount
+
+    // Debounce to prevent rapid multiple submissions
+    useEffect(() => {
+        if (postDisabled) {
+            const timer = setTimeout(() => {
+                setPostDisabled(false);
+            }, DEBOUNCE_DELAY);
+
+            return () => clearTimeout(timer);
+        }
+    }, [postDisabled]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (postDisabled) return; // Prevent submission if button is disabled
         setPostDisabled(true);
+        // Increment on each submission attempt
         await handleRequest(e, publishPost, router);
-        // const formData = new FormData(e.currentTarget);
-        // const result = await publishPost(formData);
-        // router.push(result);
-        //setPostDisabled(false);
     };
 
     return (
-        <main className=" flex flex-col gap-5 min-h-screen">
+        <main className="flex flex-col gap-5 min-h-screen">
             <nav className="p-4 border-[var(--accent-light)] border-b">
                 <BackButton />
             </nav>
@@ -43,17 +53,11 @@ export default function PostNewPage() {
                 </p>
             )}
             <form
-                className=" p-4 flex flex-col gap-4 w-full"
+                className="p-4 flex flex-col gap-4 w-full"
                 onSubmit={(e) => handleSubmit(e)}
             >
                 <div className="flex gap-4">
                     <div className="mt-2">
-                        {/* <img
-                            src={
-                                profile.avatar_url ? profile.avatar_url : tempAvatar
-                            }
-                            alt=""
-                        /> */}
                         <Image src={tempAvatar} width={50} height={50} alt="" />
                     </div>
                     <textarea
@@ -66,10 +70,10 @@ export default function PostNewPage() {
                 </div>
                 <button
                     disabled={postDisabled}
-                    className={`absolute top-4 right-4 border border-[var(--accent-light)] rounded-full  text-sm py-1 px-4 ${
+                    className={`absolute top-4 right-4 border border-[var(--accent-light)] rounded-full text-sm py-1 px-4 ${
                         postDisabled
-                            ? "bg-[var(--background-alt)]"
-                            : "bg-[var(--background-color)]"
+                            ? "bg-[var(--background-alt)] cursor-not-allowed"
+                            : "bg-[var(--accent-color)] text-[var(--background-color)]"
                     }`}
                 >
                     POST

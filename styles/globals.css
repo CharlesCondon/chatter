@@ -4,8 +4,9 @@
 
 :root {
   --foreground-rgb: rgb(0, 0, 0);
-  --background-alt: rgb(217, 240, 247);
-  --background-color: rgb(235, 248, 253);
+  --background-alt: rgb(243, 252, 255);
+  --background-color: rgb(243, 252, 255);
+  --alt-color: rgb(220, 246, 255);
   --accent-color: rgb(0, 21, 81);
   --accent-light: rgba(0, 21, 81, .15)
 }

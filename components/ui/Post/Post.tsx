@@ -45,7 +45,6 @@ export default function Post({
     let [postOptions, setPostOptions] = useState<boolean>(false);
     let [allowNav, setAllowNav] = useState<boolean>(false);
     const router = useRouter();
-    const currentUser = useUser().profile;
 
     useEffect(() => {
         const formatTime = (timestamp: string): string => {

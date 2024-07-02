@@ -13,7 +13,7 @@ export default function ExploreLayout({
                 <h1 className="text-center p-4">Chatter</h1>
             </Link> */}
             {children}
-            <Navbar></Navbar>
+            <Navbar activePage={"explore"}></Navbar>
         </main>
     );
 }

@@ -910,7 +910,7 @@ export async function publishPost(formData: FormData) {
 		return getStatusRedirect(
 			'/posts/new',
 			'Error!',
-			'Oops, looks like your post is not positive enough. Try friendlier language and try again!'
+			'Oops, looks like your post is not positive enough. Try friendlier language and try again!',
 		);
 	}
 

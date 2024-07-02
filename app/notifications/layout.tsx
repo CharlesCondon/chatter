@@ -10,7 +10,7 @@ export default function NotifLayout({
     return (
         <main className="flex flex-col gap-5 min-h-screen">
             {children}
-            <Navbar></Navbar>
+            <Navbar activePage={"notif"}></Navbar>
         </main>
     );
 }
