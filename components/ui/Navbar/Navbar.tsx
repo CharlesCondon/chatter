@@ -22,8 +22,8 @@ export default function Navbar({ activePage }: NavbarProps) {
     //console.log(profile);
 
     return (
-        <nav className="flex flex-row items-center justify-between p-4 fixed  bottom-0 w-screen border-[var(--accent-light)] border-t">
-            <Link href={"/home"}>
+        <nav className="flex flex-row items-center justify-between  fixed  bottom-0 w-screen border-[var(--accent-light)] border-t">
+            <Link href={"/home"} className="flex-1 flex justify-center p-4">
                 <Image
                     src={activePage === "home" ? homeActive : homeImg}
                     width={25}
@@ -31,7 +31,7 @@ export default function Navbar({ activePage }: NavbarProps) {
                     alt="Home"
                 />
             </Link>
-            <Link href={"/explore"}>
+            <Link href={"/explore"} className="flex-1 flex justify-center p-4">
                 <Image
                     src={activePage === "explore" ? searchActive : searchImg}
                     width={23}
@@ -39,7 +39,10 @@ export default function Navbar({ activePage }: NavbarProps) {
                     alt="Explore"
                 />
             </Link>
-            <Link href={"/notifications"}>
+            <Link
+                href={"/notifications"}
+                className="flex-1 flex justify-center p-4"
+            >
                 <Image
                     src={activePage === "notif" ? notifActive : notifImg}
                     width={27}
@@ -47,10 +50,13 @@ export default function Navbar({ activePage }: NavbarProps) {
                     alt="Notifications"
                 />
             </Link>
-            {/* <Link href={"/messages"}>
+            {/* <Link href={"/messages"} className="flex-1 flex justify-center p-4">
                 <Image src={dmImg} width={25} height={25} alt="Messages" />
             </Link> */}
-            <Link href={profile ? `/profile/${profile.username}` : "/home"}>
+            <Link
+                href={profile ? `/profile/${profile.username}` : "/home"}
+                className="flex-1 flex justify-center p-4"
+            >
                 <Image
                     src={activePage === "profile" ? profileActive : profileImg}
                     width={25}

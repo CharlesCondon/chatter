@@ -20,11 +20,11 @@ export async function handleRequest(
 
 	if (router) {
 		// If client-side router is provided, use it to redirect
-		console.log('redirect via client')
+		//console.log('redirect via client')
 		return router.push(redirectUrl);
 	} else {
 		// Otherwise, redirect server-side
-		console.log('redirect via server')
+		//console.log('redirect via server')
 		return await redirectToPath(redirectUrl);
 	}
 }
@@ -39,11 +39,11 @@ export async function handleRequestAlt(
 
 	if (router) {
 		// If client-side router is provided, use it to redirect
-		console.log('redirect via client')
+		//console.log('redirect via client')
 		return router.push(redirectUrl);
 	} else {
 		// Otherwise, redirect server-side
-		console.log('redirect via server')
+		//console.log('redirect via server')
 		return await redirectToPath(redirectUrl);
 	}
 }

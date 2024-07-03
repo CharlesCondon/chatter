@@ -80,7 +80,7 @@ export default function HomeClient({ initialPosts }: { initialPosts: Post[] }) {
                 Refresh
             </button>
             <PullToRefresh onRefresh={handleRefresh} className="text-center">
-                <div className=" bg-[#DDECF1]">
+                <div className=" bg-[var(--post-background)]">
                     <ul className="text-left flex flex-col gap-2 pt-2">
                         {posts.map((post, i) => (
                             <Post

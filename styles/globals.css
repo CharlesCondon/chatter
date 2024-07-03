@@ -9,7 +9,8 @@
   --post-color: rgb(243, 252, 255);
   --alt-color: rgb(220, 246, 255);
   --accent-color: rgb(0, 21, 81);
-  --accent-light: rgba(0, 21, 81, .15)
+  --accent-light: rgba(0, 21, 81, .15);
+  --post-background: #DDECF1;
 }
 
 /* @media (prefers-color-scheme: dark) {

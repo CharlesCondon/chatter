@@ -295,7 +295,7 @@ export default async function ProfilePage({
                         <p className="text-sm opacity-50">following</p>
                     </div>
                 </div>
-                <div className="bg-[#DDECF1] py-2 flex flex-col gap-2">
+                <div className="bg-[var(--post-background)] py-2 flex flex-col gap-2">
                     {profile.posts.map((post, i) => {
                         return (
                             <Post
