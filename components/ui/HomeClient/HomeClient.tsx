@@ -80,8 +80,8 @@ export default function HomeClient({ initialPosts }: { initialPosts: Post[] }) {
                 Refresh
             </button>
             <PullToRefresh onRefresh={handleRefresh} className="text-center">
-                <div>
-                    <ul className="text-left">
+                <div className=" bg-[#DDECF1]">
+                    <ul className="text-left flex flex-col gap-2 pt-2">
                         {posts.map((post, i) => (
                             <Post
                                 key={i}

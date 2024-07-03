@@ -280,41 +280,43 @@ export default async function ProfilePage({
                 </p>
                 <p>{profile.profile.bio}</p>
             </div>
-            <div className="flex flex-row justify-around border-y border-[var(--accent-light)] py-2">
-                <div className="flex-1 flex flex-col items-center">
-                    <p className="font-bold">{profile.posts.length}</p>
-                    <p className="text-sm opacity-50">posts</p>
-                </div>
-                <div className="flex-1 flex flex-col items-center">
-                    <p className="font-bold">{profile.profile.followers}</p>
-                    <p className="text-sm opacity-50">followers</p>
-                </div>
-                <div className="flex-1 flex flex-col items-center">
-                    <p className="font-bold">{profile.profile.following}</p>
-                    <p className="text-sm opacity-50">following</p>
-                </div>
-            </div>
             <div>
-                {profile.posts.map((post, i) => {
-                    return (
-                        <Post
-                            key={i}
-                            display={profile.profile.full_name}
-                            user={profile.profile.username}
-                            user_id={profile.profile.id}
-                            time={post.created_at}
-                            content={post.content}
-                            avi={profile.profile.avatar_url}
-                            id={post.id}
-                            comment_count={post.comment_count}
-                            likes={post.likes}
-                            verified={profile.profile.verified}
-                            haveLiked={post.isLiked}
-                        />
-                    );
-                })}
-                <div className="flex items-center justify-center h-28 mb-14">
-                    <h1>No more posts :{"("}</h1>
+                <div className="flex flex-row justify-around border-y border-[var(--accent-light)] py-2">
+                    <div className="flex-1 flex flex-col items-center">
+                        <p className="font-bold">{profile.posts.length}</p>
+                        <p className="text-sm opacity-50">posts</p>
+                    </div>
+                    <div className="flex-1 flex flex-col items-center">
+                        <p className="font-bold">{profile.profile.followers}</p>
+                        <p className="text-sm opacity-50">followers</p>
+                    </div>
+                    <div className="flex-1 flex flex-col items-center">
+                        <p className="font-bold">{profile.profile.following}</p>
+                        <p className="text-sm opacity-50">following</p>
+                    </div>
+                </div>
+                <div className="bg-[#DDECF1] py-2 flex flex-col gap-2">
+                    {profile.posts.map((post, i) => {
+                        return (
+                            <Post
+                                key={i}
+                                display={profile.profile.full_name}
+                                user={profile.profile.username}
+                                user_id={profile.profile.id}
+                                time={post.created_at}
+                                content={post.content}
+                                avi={profile.profile.avatar_url}
+                                id={post.id}
+                                comment_count={post.comment_count}
+                                likes={post.likes}
+                                verified={profile.profile.verified}
+                                haveLiked={post.isLiked}
+                            />
+                        );
+                    })}
+                    <div className="flex items-center justify-center h-28 mb-14">
+                        <h1>No more posts :{"("}</h1>
+                    </div>
                 </div>
             </div>
         </section>

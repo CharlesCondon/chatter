@@ -130,7 +130,7 @@ export default function Post({
     return (
         <div
             onClick={(e) => navigateToPost(e)}
-            className={`relative z-0 flex flex-row pt-2 pr-4 pl-4 pb-2 border-b border-[var(--accent-light)] gap-2 ${
+            className={`relative z-0 flex flex-row pt-2 pr-4 pl-4 pb-2 border shadow mx-2 rounded-md bg-[var(--post-color)] border-[var(--accent-light)] gap-2 ${
                 comment_count === -1 || likes === -1 ? "" : "cursor-pointer"
             }`}
         >
