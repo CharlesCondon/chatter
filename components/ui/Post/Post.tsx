@@ -134,38 +134,41 @@ export default function Post({
                 comment_count === -1 || likes === -1 ? "" : "cursor-pointer"
             }`}
         >
-            <div className="pt-0.5">
-                <button onClick={handleProfileNav}>
-                    <div className="w-14 h-14 rounded-full overflow-hidden">
-                        <Image
-                            src={
-                                avi === "/images/default-avatar.png"
-                                    ? defaultAvi
-                                    : avi
-                            }
-                            width={50}
-                            height={50}
-                            alt=""
-                            className="w-full object-contain"
-                        />
-                    </div>
-                </button>
-            </div>
-            <div className="flex flex-col flex-1 gap-2">
-                <div className="flex flex-row justify-between max-w-full items-center relative">
-                    <div className="flex flex-row gap-2 items-center max-w-full flex-wrap gap-y-0">
-                        <button
-                            onClick={handleProfileNav}
-                            className="font-bold text-lg truncate"
-                        >
-                            {display}
+            <div className="flex flex-col flex-1 gap-4">
+                <div className="flex flex-row gap-2 max-w-full items-center relative">
+                    <div className="pt-0.5 flex items-center">
+                        <button onClick={handleProfileNav}>
+                            <div className="w-12 h-12 rounded-full overflow-hidden">
+                                <Image
+                                    src={
+                                        avi === "/images/default-avatar.png"
+                                            ? defaultAvi
+                                            : avi
+                                    }
+                                    width={30}
+                                    height={30}
+                                    alt=""
+                                    className="w-full object-contain"
+                                />
+                            </div>
                         </button>
-                        {verified && (
-                            <span className="text-xs text-blue-600 flex items-center justify-center">
-                                ✓
-                            </span>
-                        )}
-                        <div className="flex flex-row gap-2 items-center">
+                    </div>
+                    <div className="flex flex-col gap-2 items-start max-w-full flex-wrap gap-y-0 ">
+                        <div className="flex flex-row gap-2">
+                            <button
+                                onClick={handleProfileNav}
+                                className="font-bold text-lg truncate leading-5"
+                            >
+                                {display}
+                            </button>
+                            {verified && (
+                                <span className="text-xs text-blue-600 flex items-center justify-center leading-5">
+                                    ✓
+                                </span>
+                            )}
+                        </div>
+
+                        <div className="flex flex-row gap-2 items-center leading-5">
                             <p className="opacity-50 truncate ">@{user}</p>
                             <p className="opacity-50">·</p>
                             <p className="opacity-50">{formattedTime}</p>
@@ -177,7 +180,7 @@ export default function Post({
                         </div>
                     )} */}
                 </div>
-                <p className="mb-2">{content}</p>
+                <p className="my-2">{content}</p>
                 <div className="flex justify-between">
                     {comment_count === -1 || likes === -1 ? (
                         <></>
