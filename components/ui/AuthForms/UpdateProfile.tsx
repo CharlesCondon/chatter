@@ -80,6 +80,8 @@ export default function UpdateProfile({
             avatarUrl = await uploadAvatarClient(avatar, profile.id);
             formData.set("avatar", avatarUrl);
             console.log(avatarUrl);
+        } else {
+            formData.set("avatar", profile.avatar_url);
         }
 
         const updatedProfile = {

@@ -15,11 +15,9 @@ export default function RootLayout({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <UserProvider>
-            <html lang="en">
-                <body className={inter.className}>{children}</body>
-                <GoogleAnalytics gaId="G-1HWYXTK6TZ" />
-            </html>
-        </UserProvider>
+        <html lang="en">
+            <body className={inter.className}>{children}</body>
+            <GoogleAnalytics gaId="G-1HWYXTK6TZ" />
+        </html>
     );
 }
