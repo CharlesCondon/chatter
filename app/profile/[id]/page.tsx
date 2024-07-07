@@ -195,8 +195,8 @@ export default async function ProfilePage({
     // };
 
     return (
-        <section className="flex min-h-screen flex-col gap-3 ">
-            <nav className="fixed z-10 w-full flex flex-row border-b border-[var(--accent-light)] p-4 items-center">
+        <section className="flex min-h-screen flex-col gap-3 max-w-lg mx-auto">
+            <nav className="fixed z-10 w-full max-w-lg flex flex-row border-b border-[var(--accent-light)] p-4 items-center">
                 <BackButton></BackButton>
                 <h1 className="flex-1 text-center font-bold">
                     {profile.profile.username}
@@ -280,7 +280,7 @@ export default async function ProfilePage({
                 </p>
                 <p>{profile.profile.bio}</p>
             </div>
-            <div>
+            <div className="flex-1 flex flex-col">
                 <div className="flex flex-row justify-around border-y border-[var(--accent-light)] py-2">
                     <div className="flex-1 flex flex-col items-center">
                         <p className="font-bold">{profile.posts.length}</p>
@@ -295,7 +295,7 @@ export default async function ProfilePage({
                         <p className="text-sm opacity-50">following</p>
                     </div>
                 </div>
-                <div className="bg-[var(--post-background)] py-2 flex flex-col gap-2">
+                <div className="bg-[var(--post-background)] py-2 flex flex-col gap-2 flex-1">
                     {profile.posts.map((post, i) => {
                         return (
                             <Post

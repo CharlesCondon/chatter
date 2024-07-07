@@ -58,7 +58,7 @@ export default function HomeClient({ initialPosts }: { initialPosts: Post[] }) {
     };
 
     return (
-        <section className="relative">
+        <section className="relative max-w-lg mx-auto">
             <div className="flex flex-row border-b border-[var(--accent-light)] pb-1 bg-[var(--background-alt)] pt-8">
                 <button
                     onClick={() => handleViewChange(false)}

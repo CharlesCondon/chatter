@@ -18,7 +18,7 @@ export default async function DedicatedPostPage({
     //console.log(profileData);
 
     return (
-        <main className=" flex flex-col gap-5 min-h-screen mb-12">
+        <main className="max-w-lg mx-auto flex flex-col gap-5 min-h-screen mb-12">
             <DedicatedPost
                 //@ts-ignore
                 display={profileData.creator_profile.full_name}

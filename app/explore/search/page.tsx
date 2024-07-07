@@ -63,7 +63,7 @@ export default function Search() {
     };
 
     return (
-        <div className="mb-16">
+        <div className="mb-16 max-w-lg mx-auto">
             <div className="flex gap-4 p-4 border-b border-[var(--accent-light)] bg-[var(--background-alt)]">
                 <BackButton />
                 <SearchBar />
@@ -105,24 +105,26 @@ export default function Search() {
                 ))}
             </section>
             <section>
-                <h2 className="p-4 text-lg mb-2 font-bold border-b border-[var(--accent-light)]">
+                <h2 className="p-4 text-lg  font-bold border-b border-[var(--accent-light)]">
                     Posts
                 </h2>
-                {results?.posts.map((post, i) => (
-                    <Post
-                        key={i}
-                        display={post.profiles.full_name}
-                        user={post.profiles.username}
-                        user_id={post.profiles.id}
-                        time={post.created_at}
-                        content={post.content}
-                        avi={post.profiles.avatar_url}
-                        id={post.id}
-                        comment_count={post.comment_count}
-                        likes={post.likes}
-                        haveLiked={false}
-                    />
-                ))}
+                <div className="bg-[var(--post-background)] py-2 flex flex-col gap-2">
+                    {results?.posts.map((post, i) => (
+                        <Post
+                            key={i}
+                            display={post.profiles.full_name}
+                            user={post.profiles.username}
+                            user_id={post.profiles.id}
+                            time={post.created_at}
+                            content={post.content}
+                            avi={post.profiles.avatar_url}
+                            id={post.id}
+                            comment_count={post.comment_count}
+                            likes={post.likes}
+                            haveLiked={false}
+                        />
+                    ))}
+                </div>
             </section>
         </div>
     );

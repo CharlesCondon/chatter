@@ -22,7 +22,7 @@ export default function Navbar({ activePage }: NavbarProps) {
     //console.log(profile);
 
     return (
-        <nav className="flex flex-row items-center justify-between  fixed  bottom-0 w-screen border-[var(--accent-light)] border-t">
+        <nav className="max-w-lg mx-auto flex flex-row items-center justify-between  fixed  bottom-0 left-1/2 translate-x-[-50%] w-screen border-[var(--accent-light)] border-t">
             <Link href={"/home"} className="flex-1 flex justify-center p-4">
                 <Image
                     src={activePage === "home" ? homeActive : homeImg}
